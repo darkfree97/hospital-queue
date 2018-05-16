@@ -1,0 +1,13 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient</title>
+    <script src="{% static 'hospital_patient_app/angular.min.js' %}"></script>
+    <script src="{% static 'hospital_patient_app/main.js' %}"></script>
+</head>
+<body ng-app="patient_view">
+<authorization width="800" height="300"></authorization>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Загальна черга</title>
+    <style>
+        ul, li {
+            list-style: none;
+            align-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            text-align: center;
+            background-color: black;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .content {
+            position: relative;
+            margin: 0;
+            padding: 10px;
+            text-align: center;
+            align-content: center;
+            background-color: white;
+            color: black;
+
+        }
+
+        .content > table {
+            text-align: center;
+            width: 100%;
+        }
+
+        .headers > th {
+            text-align: center;
+        }
+    </style>
+    <script>
+        var stop_point_1 = 0;
+        function waiting_color(time) {
+            console.log(time);
+        }
+    </script>
+</head>
+<body>
+<ul>
+    {% for procedure in procedures %}
+        <li class="header">{{ procedure }}</li>
+        <li class="content">
+            <table>
+                <thead>
+                <tr class="headers">
+                    <th>Пацієнт</th>
+                    <th>Статус</th>
+                    <th>Дата реєстрації</th>
+                    <th>Прийшов</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for zapis in queues_heap %}
+                    {% ifequal procedure zapis.procedure.name %}
+                        <tr>
+                            <td>{{ zapis.patient }}</td>
+                            <td>{{ zapis.patient.get_patient_status_display }}</td>
+                            <td>{{ zapis.creation_time }}</td>
+                            <td class="time_of_present">
+                                {{ zapis.patient.patient_present_time|time }}
+                            </td>
+                        </tr>
+                    {% endifequal %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </li>
+    {% endfor %}
+</ul>
+</body>
+
+{#<script>#}
+{#    document.addEventListener("DOMContentLoaded", function(event) {#}
+{#        setTimeout(function(){#}
+{#            console.log("Hello ");#}
+{#            window.location.reload(true);#}
+{#        }, 15000);#}
+{#    });#}
+{#</script>#}
+<script>
+    function timeToPercent(list) {
+        var percent = (parseFloat(list[0])*100/24)+(parseFloat(list[1])*100/60)/100.0
+        return percent/100;
+    }
+    $(".time_of_present").each(function () {
+        var index = timeToPercent(((new Date).toLocaleTimeString()).split(":")) - timeToPercent(($(this).html()).split(":"));
+        $(this).css("color","rgb("+parseInt(255*index)+","+parseInt(255-(255*index))+",0)");
+        $(this).removeClass("time_of_present")
+    })
+</script>
+
+</html>

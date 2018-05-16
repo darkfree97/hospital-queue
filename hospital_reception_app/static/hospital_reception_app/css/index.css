@@ -1,0 +1,169 @@
+#patients {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: -2;
+    background: linear-gradient(120deg, #4dff4d, #3399FF) no-repeat 50% 50%;
+}
+#search_form {
+    position: absolute;
+    width: 13%;
+    height: 145px;
+    top: 5%;
+    left: 0;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    background-color: #ffffff9f;
+    border-radius: 10px;
+}
+#search_patient_form{
+    height: 100%;
+}
+
+#search_patient_form > input {
+    margin: 0 0 10px 0;
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    padding: 0 3px;
+    outline: none;
+}
+#search_patient_form > input:focus {
+    border: solid 1px deepskyblue;
+}
+
+#search_patient_form > input[type="submit"]{
+    background-color: white;
+    position: relative;
+    bottom: -10px;
+    border: black 1px solid;
+}
+#search_patient_form > input[type="submit"]:hover{
+    background-color: lightgray;
+}
+#search_patient_form > input[type="submit"]:active{
+    background-color: gray;
+}
+
+#search_result {
+    position: absolute;
+    width: 85.5%;
+    height: 145px;
+    left: 13.5%;
+    top: 5%;
+    margin: 10px;
+    padding: 10px;
+    background-color: #ffffff9f;
+    border-radius: 10px;
+}
+
+#queue {
+    position: absolute;
+    width: 99%;
+    height: 76%;
+    top: 21%;
+    margin: 10px;
+    padding: 10px;
+    background-color: #ffffff9f;
+    overflow-x: auto;
+    border-radius: 10px;
+}
+
+#add_patient {
+    text-align: center;
+}
+
+#add_patient > form, #add_patient > form > input {
+    width: 100%;
+}
+
+#assign_procedure > form {
+    width: 100%;
+}
+
+#assign_procedure > form > select, #assign_procedure > form > input {
+    width: 100%;
+    margin: 0 0 10px 0;
+}
+#procedures{
+    position: absolute;
+    padding: 65px 10px 10px 10px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: -1;
+    background: linear-gradient(120deg, #4dff4d, #3399FF) no-repeat 50% 50%;
+}
+
+#procedure_selector{
+    position: relative;
+    background-color: #ffffff9f;
+    border-radius: 10px;
+    width: 9.5%;
+    height: 100%;
+}
+
+#procedure_selector>ul{
+    list-style-type: none;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    overflow-y: hidden;
+}
+
+#procedure_selector>ul>a{
+    text-align: center;
+    height: 5%;
+    color: black;
+}
+#procedure_selector>ul>a:hover,#procedure_selector>ul>a:focus{
+    text-decoration: none;
+}
+#procedure_selector>ul>a>li{
+    width: 100%;
+    height: 5%;
+    background: #ffffff80;
+    border-radius: 10px;
+    vertical-align: middle;
+    padding-top: 10px;
+    margin-bottom: 3px;
+}
+#procedure_selector>ul>a>li:hover{
+    background: #fffffff0;
+}
+
+#queue_display{
+    position: relative;
+    height: 100%;
+    width: 90%;
+    top: -100%;
+    left: 10%;
+    background-color: #ffffff9f;
+    border-radius: 10px;
+}
+
+#queue_display>#patients_count {
+    position: relative;
+    text-align: left;
+    font-size: 19px;
+    width: 98%;
+    top: 1%;
+    left: 1%;
+    height: 2%;
+}
+
+#queue_display>table{
+    position: relative;
+    top: 3%;
+    width: 98%;
+    margin: 0 1%;
+}
+#queue_display>table>thead{
+    border-bottom: 1px solid black;
+}
+#queue_display>table>tbody>tr{
+    height: 30px;
+}

@@ -1,0 +1,20 @@
+<form action="{% url 'hospital_reception_app:assign_procedure_to_patient' %}" method="post">
+    {% csrf_token %}
+    <select name="patient_id">
+        <option value="{{ patient.pk }}" selected>{{ patient }}</option>
+    </select>
+    <select name="procedure_id">
+        {% for procedure in procedures %}
+            <option value="{{ procedure.pk }}">{{ procedure }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="ОК">
+</form>
+<script>
+    $("#assign_procedure>form").submit(function (e) {
+        e.preventDefault();
+        $.post($(this).attr("action"), $(this).serialize()).done(function (data) {
+            $("#assign_procedure").html(data);
+        })
+    })
+</script>

@@ -1,0 +1,113 @@
+{% extends "hospital_reception_app/base.html" %}
+{% block title %}Пацієнти{% endblock %}
+{% block imports %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'hospital_reception_app/css/index.css' %}">
+{% endblock %}
+{% block menu_links %}
+    <li><a id="patients_link" href="#patients">Пацієнти</a></li>
+    <li><a id="procedures_link" href="#procedures">Процедури</a></li>
+{% endblock %}
+{% block content %}
+    <div id="patients">
+        <div id="search_form">
+            <form id="search_patient_form" action="{% url 'hospital_reception_app:search_patient' %}"
+                  method="post">
+                {% csrf_token %}
+                <input type="text" placeholder="Прізвище пацієнта" name="surname" class="surname"
+                       autocomplete="off"><br>
+                <input type="text" placeholder="Ім'я пацієнта" name="name" class="name" autocomplete="off"><br>
+                <input type="submit" value="Знайти"><br>
+            </form>
+        </div>
+        <div id="search_result"></div>
+        <div id="add_patient" title="Зареєструвати нового пацієнта"></div>
+        <div id="assign_procedure" title="Записати в чергу"></div>
+        <div id="queue"></div>
+    </div>
+    <div id="procedures">
+        <div id="procedure_selector"></div>
+        <div id="queue_display"></div>
+    </div>
+
+    <!-- Керування градієнтом -->
+    <script>
+        function angle(_x, _y) {
+            var x = _x - (window.innerWidth / 2);
+            var y = _y - (window.innerHeight / 2);
+            if (y < 0) {
+                return -Math.acos((x * x) / (Math.sqrt(x * x + y * y) * x))
+            }
+            else if (y > 0) {
+                return Math.acos((x * x) / (Math.sqrt(x * x + y * y) * x))
+            }
+
+        }
+        $("#patients").mousemove(function () {
+            $(this).css('background', 'linear-gradient(' + (Math.PI / 2 + angle(event.clientX, event.clientY)) + 'rad, #4dff4d, #3399FF)');
+        });
+        $("#procedures").mousemove(function () {
+            $(this).css('background', 'linear-gradient(' + (Math.PI / 2 + angle(event.clientX, event.clientY)) + 'rad, #4dff4d, #3399FF)');
+        });
+    </script>
+
+    <!-- Керування посиланнями в меню -->
+    <script>
+        $("#home_link").click(function (e) {
+            e.preventDefault();
+        });
+        $("#patients_link").click(function (e) {
+            e.preventDefault();
+            $("#patients").css('z-index', '-1');
+            $("#procedures").css('z-index', '-2');
+        });
+        $("#procedures_link").click(function (e) {
+            e.preventDefault();
+            $("#patients").css('z-index', '-2');
+            $("#procedures").css('z-index', '-1');
+        });
+    </script>
+
+    <!-- Керування блоком пацієнти -->
+    <script>
+        $('#add_patient').dialog({
+            modal: true,
+            autoOpen: false
+        });
+        $('#assign_procedure').dialog({
+            modal: true,
+            autoOpen: false
+        });
+        $('#search_patient_form').submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'hospital_reception_app:search_patient' %}',
+                data: {
+                    'surname': $('.surname').val(),
+                    'name': $('.name').val(),
+                    'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                },
+                success: function (data) {
+                    $("#search_result").html(data)
+                },
+                dataType: 'html'
+            });
+            $("input:text").val("");
+        });
+        document.addEventListener("DOMContentLoaded", function (event) {
+            setInterval(function () {
+                $.get({% url 'hospital_queue_app:all' %}, function (data) {
+                    $("#queue").html(data);
+                });
+            }, 1000);
+        });
+    </script>
+
+    <!-- Керування блоком процедури -->
+    <script>
+        $.get("{% url 'hospital_reception_app:procedures' %}", function (data) {
+            $("#procedure_selector").html(data);
+        });
+    </script>
+{% endblock %}

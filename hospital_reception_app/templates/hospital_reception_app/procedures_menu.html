@@ -1,0 +1,30 @@
+<ul>
+    {% for procedure in procedures %}
+        <a class="procedure_link" href="{% url 'hospital_reception_app:procedures_detail' procedure_id=procedure.pk %}">
+            <li>
+                {{ procedure.name }}
+            </li>
+        </a>
+    {% endfor %}
+</ul>
+<script>
+    $(".procedure_link").click(function (e) {
+        e.preventDefault();
+        $.get($(this).attr("href"), function (data) {
+            $("#queue_display").html(data);
+        });
+        $("#procedure_selector>ul>a>li")
+            .css({"border": "none", "background": "#ffffff80"})
+            .hover(function () {
+                $(this).css("background", "#fffffff0");
+            }, function () {
+                $(this).css("background", "#ffffff80");
+            });
+        $(this).children("li").css({"border": "2px solid black", "background": "#fffffff0"})
+            .hover(function () {
+                $(this).css("background", "#fffffff0");
+            }, function () {
+                $(this).css("background", "#fffffff0");
+            });
+    });
+</script>

@@ -1,0 +1,5 @@
+<form action="{% url "hospital_reception_app:create_patient_response" %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Зареєструвати">
+</form>

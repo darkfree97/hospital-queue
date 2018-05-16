@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static 'hospital_queue_app/img/medecine.png' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="{% static 'hospital_reception_app/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'hospital_reception_app/js/jquery-ui.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'hospital_reception_app/css/jquery-ui.min.css' %}">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    {% block imports %}{% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-inverse" style="position: fixed; width: 100%">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a id="home_link" class="navbar-brand" href="#">Лікарня</a>
+        </div>
+        <ul class="nav navbar-nav">
+            {% block menu_links %}{% endblock %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if user and user.is_authenticated %}
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span>{{ user.username }}</a></li>
+                <li><a href="{% url 'hospital_reception_app:logout' %}"><span class="glyphicon glyphicon-log-in"></span>Вихід</a>
+                </li>
+            {% else %}
+                <li><a href="{% url 'hospital_reception_app:login' %}"><span class="glyphicon glyphicon-log-in"></span>Вхід</a>
+                </li>
+            {% endif %}
+
+        </ul>
+    </div>
+</nav>
+
+{% if user and user.is_authenticated %}
+    {% block content %}{% endblock %}
+{% else %}
+    Ви не авторизовані
+{% endif %}
+</body>
+</html>

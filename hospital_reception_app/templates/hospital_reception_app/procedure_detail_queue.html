@@ -1,0 +1,31 @@
+<div id="patients_count">Кількість пацієнтів яким призначена дана процедура - {{ set|length }}</div>
+{% if set|length > 0 %}
+    <script>
+    $(".cost").each(function () {
+        $(this).html($(this).children(".a").html()*parseFloat($(this).children(".b").html())).removeClass("cost")
+    });
+    </script>
+    <table>
+        <thead>
+        <tr>
+            <th>Пацієнт</th>
+            <th>Кількість сеансів</th>
+            <th style="text-align: center">Дата найближчого сеансу</th>
+            <th style="text-align: center">Вартість пройдених процедур</th>
+            <th style="text-align: center">Вартість всіх процедур</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in set %}
+            <tr>
+                <td>{{ item.patient }}</td>
+                <td>{{ item.procedure_finished_count }}/{{ item.procedure_count }}</td>
+                <td style="text-align: center">{{ item.first_seance_time }}</td>
+                <td style="text-align: center" class="cost"><div class="a">{{ item.procedure_finished_count }}</div><div class="b">{{ item.procedure.cost }}</div></td>
+                <td style="text-align: center" class="cost"><div class="a">{{ item.procedure_count }}</div><div class="b">{{ item.procedure.cost }}</div></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
