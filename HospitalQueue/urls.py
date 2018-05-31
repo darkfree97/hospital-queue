@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from menu import views
 
 
 urlpatterns = [
@@ -22,4 +23,6 @@ urlpatterns = [
     url(r'^queue/', include('hospital_queue_app.urls')),
     url(r'^register/', include('hospital_reception_app.urls')),
     url(r'^patient/', include('hospital_patient_app.urls')),
+    url(r'^doctor/', include('hospital_doctor_app.urls')),
+    url(r'^/?$', views.menu_index)
 ]

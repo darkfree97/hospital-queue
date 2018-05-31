@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'hospital_reception_app.apps.HospitalReceptionAppConfig',
     'hospital_patient_app.apps.HospitalPatientAppConfig',
     'rest_framework',
+    'menu.apps.MenuConfig',
 ]
 
 MIDDLEWARE = [
