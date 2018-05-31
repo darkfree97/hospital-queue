@@ -5,5 +5,7 @@ from hospital_patient_app import views
 app_name = "hospital_patient_app"
 
 urlpatterns = [
-    url(r'^index/', views.index, name="index"),
+    url(r'^$', views.index, name="home"),
+    url(r'^login/', views.log_in, name="login"),
+    url(r'^logout/', views.log_out, name="logout"),
 ]

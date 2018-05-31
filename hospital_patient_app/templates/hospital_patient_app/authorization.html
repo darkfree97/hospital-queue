@@ -1,0 +1,6 @@
+<form action="{% url 'hospital_patient_app:login' %}" method="post">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="Електронна пошта або телефон">
+    <input type="password" name="password" placeholder="Пароль">
+    <input type="submit" value="Увійти">
+</form>
